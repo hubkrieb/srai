@@ -14,7 +14,8 @@ from srai.embedders.s2vec.embedder import S2VecEmbedder
 from srai.embedders.s2vec.model import S2VecModel
 from srai.exceptions import ModelNotFitException
 from srai.loaders.osm_loaders.filters import HEX2VEC_FILTER
-from tests.embedders.s2vec.constants import PREDEFINED_TEST_CASES, TRAINER_KWARGS
+from tests.embedders.conftest import TRAINER_KWARGS
+from tests.embedders.s2vec.constants import PREDEFINED_TEST_CASES
 
 
 def test_embedder_not_fitted() -> None:

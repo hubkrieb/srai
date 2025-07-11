@@ -2,13 +2,10 @@
 
 from srai.loaders.osm_loaders.filters import HEX2VEC_FILTER
 
-TRAINER_KWARGS = {"max_epochs": 1, "accelerator": "cpu", "deterministic": True}
-
 PREDEFINED_TEST_CASES = [
     {
         "test_case_name": "wro_s2_14",
-        "geocoding_name": "Wrocław, Poland",
-        # "root_region_index": "891e2040887ffff",
+        "root_regions_tokens": ["470fc275", "470fc277"],
         "seed": 42,
         "tags": {
             t: HEX2VEC_FILTER[t]
