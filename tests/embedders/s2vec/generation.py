@@ -39,12 +39,15 @@ def generate_test_case(
     if tags is None:
         tags = {"leisure": "park", "amenity": "restaurant"}
 
-    geoms = [Polygon(s2_to_geo_boundary(token)) for token in root_regions_tokens]
+    geoms = [
+        Polygon(s2_to_geo_boundary(token, geo_json_conformant=True))
+        for token in root_regions_tokens
+    ]
     regions_gdf = gpd.GeoDataFrame(index=root_regions_tokens, geometry=geoms, crs=WGS84_CRS)
     regions_gdf.index.name = REGIONS_INDEX
 
     loader = OSMPbfLoader()
-    features_gdf = loader.load(regions_gdf.geometry.union_all(), tags)
+    features_gdf = loader.load(regions_gdf, tags)
 
     embedder = S2VecEmbedder(
         target_features=[f"{st}_{t}" for st in tags for t in tags[st]],  # type: ignore
@@ -68,7 +71,7 @@ def generate_test_case(
 
     results_df.columns = results_df.columns.astype(str)
 
-    files_prefix = test_case_name + "_test"
+    files_prefix = test_case_name
 
     output_path = Path(__file__).parent / "test_files"
     regions_gdf.to_parquet(
