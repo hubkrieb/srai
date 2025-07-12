@@ -10,7 +10,7 @@ from shapely.geometry import Polygon
 from srai.constants import REGIONS_INDEX, WGS84_CRS
 
 
-def get_children_from_token(token: str, target_level: int) -> list[CellId]:
+def get_children_from_token(token: str, target_level: int) -> gpd.GeoDataFrame:
     """
     Given an S2 cell token (string), return a list of its child cells at the specified target level.
 
@@ -19,7 +19,7 @@ def get_children_from_token(token: str, target_level: int) -> list[CellId]:
         target_level (int): The desired resolution level for the child cells.
 
     Returns:
-        List[CellId]: A list of S2CellId objects representing the children at the target level.
+        gpd.GeoDataFrame: A GeoDataFrame of S2 cells representing the children at the target level.
     """
     # Convert the token to a CellId
     cell_id = CellId.from_token(token)

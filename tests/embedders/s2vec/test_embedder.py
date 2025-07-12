@@ -21,10 +21,10 @@ from tests.embedders.s2vec.constants import PREDEFINED_TEST_CASES
 def test_embedder_not_fitted() -> None:
     """Test that S2VecEmbedder raises ModelNotFitException if not fitted."""
     embedder = S2VecEmbedder(
-        target_features=[f"{t}_{st}" for t in HEX2VEC_FILTER for st in HEX2VEC_FILTER[t]],
+        target_features=[f"{t}_{st}" for t in HEX2VEC_FILTER for st in HEX2VEC_FILTER[t]]  # type: ignore
     )
     with pytest.raises(ModelNotFitException):
-        embedder.transform(gpd.GeoDataFrame(geometry=[]), gpd.GeoDataFrame(), gpd.GeoDataFrame())
+        embedder.transform(gpd.GeoDataFrame(geometry=[]), gpd.GeoDataFrame())
 
 
 def test_embedder() -> None:
@@ -51,14 +51,14 @@ def test_embedder() -> None:
         embedder = S2VecEmbedder(
             target_features=target_features,
             batch_size=10,
-            img_res=test_case["img_res"],
-            patch_res=test_case["patch_res"],
-            num_heads=test_case["num_heads"],
-            encoder_layers=test_case["encoder_layers"],
-            decoder_layers=test_case["decoder_layers"],
-            embedding_dim=test_case["embedding_dim"],
-            decoder_dim=test_case["decoder_dim"],
-            mask_ratio=test_case["mask_ratio"],
+            img_res=test_case["img_res"],  # type: ignore
+            patch_res=test_case["patch_res"],  # type: ignore
+            num_heads=test_case["num_heads"],  # type: ignore
+            encoder_layers=test_case["encoder_layers"],  # type: ignore
+            decoder_layers=test_case["decoder_layers"],  # type: ignore
+            embedding_dim=test_case["embedding_dim"],  # type: ignore
+            decoder_dim=test_case["decoder_dim"],  # type: ignore
+            mask_ratio=test_case["mask_ratio"],  # type: ignore
         )
 
         counts_df, _, _ = embedder._prepare_dataset(
@@ -97,16 +97,16 @@ def test_embedder_save_load() -> None:
         torch.use_deterministic_algorithms(True)
 
         embedder = S2VecEmbedder(
-            target_features=test_case["tags"],
+            target_features=test_case["tags"],  # type: ignore
             batch_size=10,
-            img_res=test_case["img_res"],
-            patch_res=test_case["patch_res"],
-            num_heads=test_case["num_heads"],
-            encoder_layers=test_case["encoder_layers"],
-            decoder_layers=test_case["decoder_layers"],
-            embedding_dim=test_case["embedding_dim"],
-            decoder_dim=test_case["decoder_dim"],
-            mask_ratio=test_case["mask_ratio"],
+            img_res=test_case["img_res"],  # type: ignore
+            patch_res=test_case["patch_res"],  # type: ignore
+            num_heads=test_case["num_heads"],  # type: ignore
+            encoder_layers=test_case["encoder_layers"],  # type: ignore
+            decoder_layers=test_case["decoder_layers"],  # type: ignore
+            embedding_dim=test_case["embedding_dim"],  # type: ignore
+            decoder_dim=test_case["decoder_dim"],  # type: ignore
+            mask_ratio=test_case["mask_ratio"],  # type: ignore
         )
 
         result_df = embedder.fit_transform(

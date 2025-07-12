@@ -10,7 +10,7 @@ from srai.constants import WGS84_CRS
 from srai.embedders.s2vec import s2_utils
 
 
-@pytest.parametrize(  # type: ignore
+@pytest.mark.parametrize(  # type: ignore
     "token,target_level,expectation",
     [
         ("invalid_token", 18, pytest.raises(ValueError)),
