@@ -10,7 +10,7 @@ from shapely.geometry import Polygon
 from srai.constants import REGIONS_INDEX, WGS84_CRS
 
 
-def get_children_from_token(token: str, target_level: int):
+def get_children_from_token(token: str, target_level: int) -> list[CellId]:
     """
     Given an S2 cell token (string), return a list of its child cells at the specified target level.
 
@@ -57,7 +57,7 @@ def get_children_from_token(token: str, target_level: int):
     return sorted_gdf
 
 
-def sort_patches(patches_gdf: gpd.GeoDataFrame):
+def sort_patches(patches_gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     """
     Sort patches from top-left to bottom-right based on their bounding box coordinates.
 
@@ -72,7 +72,9 @@ def sort_patches(patches_gdf: gpd.GeoDataFrame):
     return patches_gdf.iloc[sorted_indices]
 
 
-def get_patches_from_img_gdf(img_gdf: gpd.GeoDataFrame, target_level: int):
+def get_patches_from_img_gdf(
+    img_gdf: gpd.GeoDataFrame, target_level: int
+) -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
     """
     Get patches from an image GeoDataFrame at a specified target level.
 
