@@ -221,6 +221,11 @@ class S2VecModel(Model):
             indices to restore the original order.
         """
         B, N, D = x.shape
+
+        if mask_ratio == 0.0:
+            mask = torch.zeros([B, N], device=x.device)
+            ids_restore = torch.arange(N, device=x.device).unsqueeze(0).repeat(B, 1)
+            return x, mask, ids_restore
         len_keep = int(N * (1 - mask_ratio))
 
         noise = torch.rand(B, N, device=x.device)
